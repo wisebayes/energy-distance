@@ -37,6 +37,6 @@ To run the code, follow the instructions included in the python notebooks under 
 
 More results are coming, so this repo may change.
 
-| Model and Benchmark | Cosine Similarity | Energy |
+| Model and Benchmark | Cosine Similarity | Energy Distance |
 |----------|:--------:|---------:|
-| Row 1    | Data 1   |  Data 2  |
+| NULL   | NULL   |  NULL  |
