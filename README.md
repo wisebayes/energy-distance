@@ -35,8 +35,25 @@ To run the code, follow the instructions included in the python notebooks under 
 
 ## Results
 
-More results are coming, so this repo may change.
+We focused on retrieval Recall. This is a measure of a model's ability to find all the relevant cases within a dataset.
+* recall_at_1000 calculates how many relevant documents are found in the top 1000
 
-| Model and Benchmark | Cosine Similarity | Energy Distance |
-|----------|:--------:|---------:|
-| NULL   | NULL   |  NULL  |
+
+| Model | MTEB Benchmark | Cosine Similarity | Energy Distance (Untrained Sentence Transformer) | Energy Distance (Trained Sentence Transformer)
+|----------|:--------:|---------:|---------:|---------:|
+| [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)     | ArguAna : recall_at_1000   | 0.99502     |  0.99573  |  0.95448  |
+| [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)     | ArguAna : recall_at_1000  | 0.99573     |  0.99573  |  0.98933  |
+| [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2)     | ArguAna : recall_at_1000   | 0.99644     |  0.99431  |  0.99431  |
+| [multi-qa-MiniLM-L6-cos-v1](https://huggingface.co/sentence-transformers/multi-qa-MiniLM-L6-cos-v1)     | ArguAna : recall_at_1000   | 0.99502     |  0.99502  |  0.97653  |
+| [nq-distilbert-base-v1](https://huggingface.co/sentence-transformers/nq-distilbert-base-v1)     | ArguAna : recall_at_1000   | 0.98293     | 0.97653  |  0.97653  |
+
+
+* evaluation_time is in seconds. Note that Cosine Similarity sometimes used benchmarks that were precalculated, giving them unrealistically fast evaluation times. 
+
+| Model | MTEB Benchmark | Cosine Similarity | Energy Distance (Untrained Sentence Transformer) | Energy Distance (Trained Sentence Transformer)
+|----------|:--------:|---------:|---------:|---------:|
+| [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)     | ArguAna : evaluation_time   | 8.59     |  1562.93  |  1110.49  |
+| [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)     | ArguAna : evaluation_time   | 9.51     |  1103.01  |  1115.91  |
+| [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2)     | ArguAna : evaluation_time   | 53.88     |  1997.01  |  1645.77  |
+| [multi-qa-MiniLM-L6-cos-v1](https://huggingface.co/sentence-transformers/multi-qa-MiniLM-L6-cos-v1)     | ArguAna : evaluation_time   | 12.49     |  1172.29  |  1107.27  |
+| [nq-distilbert-base-v1](https://huggingface.co/sentence-transformers/nq-distilbert-base-v1)     | ArguAna : evaluation_time   | 27.58     | 1488.82  |  1125.27  |
