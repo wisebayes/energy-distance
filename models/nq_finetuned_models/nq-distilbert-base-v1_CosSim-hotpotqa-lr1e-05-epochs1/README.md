@@ -11,7 +11,7 @@ tags:
 
 # {MODEL_NAME}
 
-This is a [sentence-transformers](https://www.SBERT.net) model: It maps sentences & paragraphs to a 384 dimensional dense vector space and can be used for tasks like clustering or semantic search.
+This is a [sentence-transformers](https://www.SBERT.net) model: It maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.
 
 <!--- Describe your model here -->
 
@@ -86,32 +86,32 @@ The model was trained with the parameters:
 
 **DataLoader**:
 
-`torch.utils.data.dataloader.DataLoader` of length 3181 with parameters:
+`torch.utils.data.dataloader.DataLoader` of length 10625 with parameters:
 ```
 {'batch_size': 16, 'sampler': 'torch.utils.data.sampler.RandomSampler', 'batch_sampler': 'torch.utils.data.sampler.BatchSampler'}
 ```
 
 **Loss**:
 
-`sentence_transformers.losses.ContrastiveLoss.ContrastiveLoss` with parameters:
+`sentence_transformers.losses.MultipleNegativesRankingLoss.MultipleNegativesRankingLoss` with parameters:
   ```
-  {'distance_metric': 'SiameseDistanceMetric.ENERGY_DISTANCE', 'margin': 0.5, 'size_average': True}
+  {'scale': 20.0, 'similarity_fct': 'cos_sim'}
   ```
 
 Parameters of the fit()-Method:
 ```
 {
-    "epochs": 10,
-    "evaluation_steps": 0,
-    "evaluator": "NoneType",
+    "epochs": 1,
+    "evaluation_steps": 2500,
+    "evaluator": "sentence_transformers.evaluation.InformationRetrievalEvaluator.InformationRetrievalEvaluator",
     "max_grad_norm": 1,
-    "optimizer_class": "<class 'torch.optim.adamw.AdamW'>",
+    "optimizer_class": "<class 'transformers.optimization.AdamW'>",
     "optimizer_params": {
-        "lr": 2e-05
+        "lr": 1e-05
     },
     "scheduler": "WarmupLinear",
     "steps_per_epoch": null,
-    "warmup_steps": 25448,
+    "warmup_steps": 1062,
     "weight_decay": 0.01
 }
 ```
@@ -120,8 +120,8 @@ Parameters of the fit()-Method:
 ## Full Model Architecture
 ```
 SentenceTransformer(
-  (0): Transformer({'max_seq_length': 512, 'do_lower_case': False}) with Transformer model: BertModel 
-  (1): Pooling({'word_embedding_dimension': 384, 'pooling_mode_cls_token': False, 'pooling_mode_mean_tokens': True, 'pooling_mode_max_tokens': False, 'pooling_mode_mean_sqrt_len_tokens': False, 'pooling_mode_weightedmean_tokens': False, 'pooling_mode_lasttoken': False, 'include_prompt': True})
+  (0): Transformer({'max_seq_length': 512, 'do_lower_case': False}) with Transformer model: DistilBertModel 
+  (1): Pooling({'word_embedding_dimension': 768, 'pooling_mode_cls_token': False, 'pooling_mode_mean_tokens': True, 'pooling_mode_max_tokens': False, 'pooling_mode_mean_sqrt_len_tokens': False, 'pooling_mode_weightedmean_tokens': False, 'pooling_mode_lasttoken': False, 'include_prompt': True})
 )
 ```
 

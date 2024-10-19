@@ -87,7 +87,7 @@ from sentence_transformers import InputExample
 train_examples = []
 train_data = dataset['train']['set']
 # Use all training data
-n_examples = dataset['train'].num_rows
+n_examples = dataset['train'].num_rows // 2
 
 for i in range(n_examples):
   example = train_data[i]
@@ -105,7 +105,7 @@ train_loss = losses.TripletLoss(model=model)
 
 num_epochs = 10
 
-warmup_steps = int(len(train_dataloader) * num_epochs * 0.2) #20% of train data
+warmup_steps = int(len(train_dataloader) * num_epochs * 0.8) #80% of train data
 
 model.fit(train_objectives=[(train_dataloader, train_loss)],
           epochs=num_epochs,
@@ -113,7 +113,7 @@ model.fit(train_objectives=[(train_dataloader, train_loss)],
 
 """Save output to `/models`"""
 
-model_name = 'ed-all-MiniLM-L6-v2_TripletLoss'
+model_name = 'ed-all-MiniLM-L6-v2_TripletLoss_4'
 os.makedirs(f'{os.getcwd()}/../models', exist_ok=True)
 model_path = f'{os.getcwd()}/../models/{model_name}'
 model.save(model_path)
