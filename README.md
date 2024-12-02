@@ -33,13 +33,13 @@ pip install -r requirements.txt
 To run the code, follow the instructions included in the python notebooks under `/notebooks`. Benchmarks can be run from MTEB.ipynb. Sentence transformer training can be run from train_energy_sentence_transformer.ipynb.
 
 
-## Results
+## Results (NEEDS TO BE UPDATED, NOT VALID)
 
 We focused on retrieval Recall. This is a measure of a model's ability to find all the relevant cases within a dataset.
 * recall_at_1000 calculates how many relevant documents are found in the top 1000
 
 
-| Model | MTEB Benchmark | Cosine Similarity | Energy Distance (Untrained Sentence Transformer) | Energy Distance (Trained Sentence Transformer)
+#| Model | MTEB Benchmark | Cosine Similarity | Energy Distance (Untrained Sentence Transformer) | Energy Distance (Trained Sentence Transformer)
 |----------|:--------:|---------:|---------:|---------:|
 | [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)     | ArguAna : recall_at_1000   | 0.99502     |  0.99573  |  0.95448  |
 | [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)     | ArguAna : recall_at_1000  | 0.99573     |  0.99573  |  0.98933  |
