@@ -8,6 +8,7 @@
 5. git clone https://github.com/gnatesan/mteb-1.34.14.git
 6. pip install -e /path_to_sentence-transformers/sentence-transformers-3.4.1
 7. pip install -e /path_to_mteb/mteb-1.34.14
+8. git clone https://github.com/gnatesan/beir.git
 
 ## Model Training
-1. 
+1. cd /path_to_beir/beir/examples/retrieval/training
