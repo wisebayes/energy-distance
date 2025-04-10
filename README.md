@@ -23,7 +23,7 @@
 nano train_sbert_latest_2.py or nano train_sbert_ddp_2.py to change model, model_name, and LR. 
 nano sentence-transformers-3.4.1/sentence-transformers/losses/MultipleNegativesRankingLoss.py to change scale. 
 3. sbatch train.sh OR sbatch train_ddp.sh if using multiple GPUs
-4. 
+4. Trained model will be saved in /path_to_beir/beir/examples/retrieval/training/output
 
 ## IMPORTANT FILES
 1. train.sh - Batch script to run model training on a single GPU.  
