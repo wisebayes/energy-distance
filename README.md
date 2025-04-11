@@ -13,7 +13,7 @@
 ## Sanity Check
 1. conda create --name testenv python=3.9
 2. conda activate testenv
-3. pip install sentence-transformers==3.5.0
+3. pip install sentence-transformers==3.4.1
 4. pip install mteb==1.34.14
 5. sbatch inference_CosSim.sh (Make sure the batch script calls eval_dataset.py and a baseline model is being used. *i.e. model = SentenceTransformer("Snowflake/snowflake-arctic-embed-m-v1.5")*)
 6. Cross reference the inference results with what is on the leaderboard. https://huggingface.co/spaces/mteb/leaderboard
