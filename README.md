@@ -26,6 +26,16 @@ nano sentence-transformers-3.4.1/sentence-transformers/losses/MultipleNegativesR
 3. sbatch train.sh OR sbatch train_ddp.sh if using multiple GPUs
 4. Trained model will be saved in /path_to_beir/beir/examples/retrieval/training/output
 
+## Model Evaluation
+1. sbatch inference_ED.sh if evaluating an ED trained model (myenv39 conda environment must be setup)
+2. sbatch inference_CosSim.sh if evaluating a cosine similarity trained model (testenv conda environment must be setup)
+3. Make sure the proper python script in the batch file is being ran (if evaluating entire dataset or subset based on query lengths)
+
+
+## RPI Cluster Setup
+1. 
+
+
 ## IMPORTANT FILES
 1. train.sh - Batch script to run model training on a single GPU.  
 2. train_ddp.sh - Batch script to run model training on multiple GPUs. Make sure number of GPUs requested are properly set.
