@@ -41,12 +41,12 @@ nano sentence-transformers-3.4.1/sentence-transformers/losses/MultipleNegativesR
 5. echo 'export PATH="$HOME/miniconda3x86/condabin:$PATH"' >> ~/.bashrc
 6. source ~/.bashrc 
 7. export http_proxy=http://proxy:8888
-export https_proxy=$http_proxy
-source /gpfs/u/home/MSSV/MSSVntsn/barn/miniconda3x86/etc/profile.d/conda.sh
-export TMPDIR=~/barn
-export TRANSFORMERS_CACHE=/gpfs/u/home/MSSV/MSSVntsn/barn
-export HF_HOME=/gpfs/u/home/MSSV/MSSVntsn/barn
-(Step 7 needs to be done every time you log in to the node)
+export https_proxy=$http_proxy\
+source /gpfs/u/home/MSSV/MSSVntsn/barn/miniconda3x86/etc/profile.d/conda.sh\
+export TMPDIR=~/barn\
+export TRANSFORMERS_CACHE=/gpfs/u/home/MSSV/MSSVntsn/barn\
+export HF_HOME=/gpfs/u/home/MSSV/MSSVntsn/barn\
+(Step 7 needs to be done every time you log in to the node, replace MSSVntsn with your username)
 
 
 ## IMPORTANT FILES
