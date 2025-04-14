@@ -57,7 +57,7 @@ export HF_HOME=/gpfs/u/home/MSSV/MSSVntsn/barn
 5. train_sbert_latest_2.py - Python script to run model training on a single GPU. Uses ir_evaluator to evaluate on a dev set after each epoch of training and only saves the best model, make sure ir_evaluator is enabled.
 6. train_sbert_ddp_2.py - Python script to run model training on multiple GPUs using DDP. Currently does not use an ir_evaluator to evaluate on a dev set after each epoch of training.
 7. eval_dataset.py - Python script to run inference on entire BEIR dataset.
-8. eval_dataset_subset.py - Python script to run inference on subset of BEIR dataset based on query lengths.
+8. eval_dataset_subset_length.py - Python script to run inference on subset of BEIR dataset based on query lengths.
 
 ## IMPORTANT NOTES
 1. All files used for training should be present when you clone the gnatesan/beir repository in beir/examples/retrieval/training folder.
