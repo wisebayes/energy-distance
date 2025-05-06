@@ -2,15 +2,16 @@
 
 #SBATCH -J train-sentence-transformer
 #SBATCH --nodes=1                   # Single node
-#SBATCH --gres=gpu:2                # 8 GPUs on this node
+#SBATCH --gres=gpu:4                # 8 GPUs on this node
 #SBATCH --ntasks-per-node=2         # One process per GPU
 #SBATCH --cpus-per-task=8           # 8 CPU cores per task
 #SBATCH --time=48:00:00            # Extended wall time
-#SBATCH --qos=npl-48hr             # Requested QoS IMPORTANT: REPLACE WITH SBATCH --account=edu if using Terremoto cluster
+#SBATCH --account=edu             # Requested QoS IMPORTANT: REPLACE WITH SBATCH --account=edu if using Terremoto cluster
 #SBATCH --output=output_snowflake-arctic-embed-m-v1.5_ED-hotpotqa-lr1e-5-epochs10-temperature20_full_dev_3.out	  # Standard output log file (make sure correct LR and scale are set)
 #SBATCH --error=error_snowflake-arctic-embed-m-v1.5_ED-hotpotqa-lr1e-5-epochs10-temperature20_full_dev_3.out        # Standard error log file (make sure correct LR and scale are set)
 
 #RPI Cluster
+module purge
 module load gcc/8.4.0/1
 module load cuda/12.2
 
@@ -21,7 +22,7 @@ module load cuda/12.2
 
 # Activate Conda environment
 source ~/.bashrc
-source ~/barn/miniconda3x86/etc/profile.d/conda.sh #RPI Cluster only
+source /insomnia001/depts/edu/COMSE6998/ck3255/anaconda3/etc/profile.d/conda.sh #RPI Cluster only
 conda activate myenv39
 
 # Set Python path for correct environment
@@ -38,5 +39,6 @@ echo "MASTER_ADDR="$MASTER_ADDR
 
 nvidia-smi
 # Run training with torchrun for DDP
-torchrun --nproc_per_node=2 /gpfs/u/home/MSSV/MSSVntsn/barn/beir/examples/retrieval/training/train_sbert_ddp_2.py
+torchrun --nproc_per_node=4 /insomnia001/depts/edu/COMSE6998/ck3255/energy-distance/notebooks/train_sbert_ddp_2.py
+# torchrun --nproc_per_node=2 /gpfs/u/home/MSSV/MSSVntsn/barn/beir/examples/retrieval/training/train_sbert_ddp_2.py
 #torchrun --nproc_per_node=4 /gpfs/u/home/MSSV/MSSVntsn/barn/beir/examples/retrieval/training/test_ddp.py

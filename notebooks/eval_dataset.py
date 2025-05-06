@@ -18,14 +18,14 @@ print("Using device:", device)
 # Define the sentence-transformers model name
 #model_name = "distilbert-base-uncased_ED-hotpotqa-lr1e-05-epochs10-zeropadding_noepsilon_temperature200_full_test_sanitycheck"
 #model_name = "distilbert-base-uncased_ED-fever-lr2e-05-epochs10-temperature20_full_dev_full_test"
-model_name = "distilbert-base-uncased_CosSim-fever-lr2e-05-epochs10-temperature20_full_dev_full_test"
+# model_name = "distilbert-base-uncased_CosSim-fever-lr2e-05-epochs10-temperature20_full_dev_full_test"
 #model_name = "distilbert-base-uncased_CosSim-hotpotqa-lr2e-05-epochs10-temperature200_full_test"
-#model_name = "Snowflake/snowflake-arctic-embed-m-v1.5"
+model_name = "distilbert/distilbert-base-uncased"
 start_time = time.time()  # Record the start time
 
 # Load the model
-model = SentenceTransformer("/moto/home/ggn2104/beir/examples/retrieval/training/output/distilbert-base-uncased_CosSim-fever-lr2e-05-epochs10-temperature20_full_dev")
-#model = SentenceTransformer(model_name)
+# model = SentenceTransformer("/moto/home/ggn2104/beir/examples/retrieval/training/output/distilbert-base-uncased_CosSim-fever-lr2e-05-epochs10-temperature20_full_dev")
+model = SentenceTransformer(model_name)
 model = model.to(device)  # Ensure the model is loaded to the correct device
 
 # Load the HotpotQA task from MTEB

@@ -33,7 +33,7 @@ print(torch.__version__)
 
 
 # ** Paths **
-model_name = "snowflake-arctic-embed-m-v1.5_ED"
+model_name = "distilbert/distilbert-base-uncased"
 save_dir = os.path.join(pathlib.Path(__file__).parent.absolute(), "output", f"{model_name}-hotpotqa-lr1e-5-epochs10-temperature20_full_dev")
 os.makedirs(save_dir, exist_ok=True)
 
@@ -44,17 +44,31 @@ data_path = util.download_and_unzip(url, "datasets")
 corpus, queries, qrels = GenericDataLoader(data_path).load(split="train")
 
 # Create InputExample list
-train_examples = []
+# train_examples = []
+# for qid, pos_ids in qrels.items():
+#     query = queries[qid]
+#     for pos_id in pos_ids:
+#         if pos_id in corpus:
+#             pos_text = corpus[pos_id]["text"]
+#             train_examples.append(InputExample(texts=[query, pos_text]))
+all_examples = []
 for qid, pos_ids in qrels.items():
-    query = queries[qid]
-    for pos_id in pos_ids:
-        if pos_id in corpus:
-            pos_text = corpus[pos_id]["text"]
-            train_examples.append(InputExample(texts=[query, pos_text]))
+            all_examples.append(InputExample(texts=[query, pos_text]))
+
+
+from sklearn.model_selection import train_test_split
+train_examples, val_examples = train_test_split(
+    all_examples, test_size=0.10, random_state=42, shuffle=True
+)
+
+# Sentence‑Transformers smart‑batching datasets
+from sentence_transformers import SentenceTransformerDataset
+train_dataset = SentenceTransformerDataset(train_examples, model)
+eval_dataset  = SentenceTransformerDataset(val_examples,  model)
 
 
 # ** Load model **
-model = SentenceTransformer("Snowflake/snowflake-arctic-embed-m-v1.5")
+model = SentenceTransformer("distilbert/distilbert-base-uncased")
 model.to(device)
 
 # ** Wrap in DDP if needed **
@@ -63,8 +77,8 @@ if torch.cuda.device_count() > 1:
 
 # Create tokenizing dataset
 #train_dataset = SentenceTransformerDataset(train_examples, model.module)  # DDP wraps model
-train_data = [{"query": example.texts[0], "text": example.texts[1]} for example in train_examples]
-train_dataset = Dataset.from_dict({k: [d[k] for d in train_data] for k in train_data[0]})
+# train_data = [{"query": example.texts[0], "text": example.texts[1]} for example in train_examples]
+# train_dataset = Dataset.from_dict({k: [d[k] for d in train_data] for k in train_data[0]})
 #train_dataset = train_examples
 
 # ** Create DDP Sampler **
@@ -75,25 +89,51 @@ train_dataloader = DataLoader(train_dataset, batch_size=16, sampler=train_sample
 # ** Training Args **
 training_args = SentenceTransformerTrainingArguments(
     output_dir=save_dir,
-    num_train_epochs=10,
-    per_device_train_batch_size=16,
-    learning_rate=1e-5,
-    warmup_steps=int(len(train_dataset) * 10 / 16 * 0.1),
-    logging_steps=10,
+    # num_train_epochs=10,
+    # per_device_train_batch_size=32,
+    # learning_rate=1e-5,
+    # warmup_steps=int(len(train_dataset) * 10 / 16 * 0.1),
+    # logging_steps=10,
+    # save_strategy="epoch",
+    # evaluation_strategy="no",
+    # save_total_limit=10,
+    # ddp_find_unused_parameters=False
+    # per_device_train_batch_size=32,
+    # learning_rate=1e-5,
+    # warmup_steps=int(len(train_dataset)//32*0.1),
+    # fp16=True,
+    # gradient_accumulation_steps=2,
+    warmup_steps=int(len(train_dataset)//32*0.1),
+    num_train_epochs=6,                        # ▼ fewer epochs
+    per_device_train_batch_size=32,
+    gradient_accumulation_steps=2,             # ▲ larger effective batch
+    learning_rate=2e-5,                        # ▲ slightly higher for large‑accu
+    weight_decay=0.01,                         # ▲ L2‑regularisation
+    warmup_ratio=0.1,                          # simpler warm‑up
+    fp16=True,                                 # ▲ mixed‑precision
+    logging_steps=25,
     save_strategy="epoch",
-    evaluation_strategy="no",
-    save_total_limit=10,
-    ddp_find_unused_parameters=False
-)
+    evaluation_strategy="epoch",               # ▲ enables val monitoring
+    load_best_model_at_end=True,
+    metric_for_best_model="loss",
+    save_total_limit=5,
+    ddp_find_unused_parameters=False,
+    max_grad_norm=1.0,
+    seed=24,
+ )
 
 # ** Train **
 trainer = SentenceTransformerTrainer(
     model=model.module,
     args=training_args,
     train_dataset=train_dataset,
-    loss=losses.MultipleNegativesRankingLoss(model=model.module),
-    eval_dataset=None,
-    callbacks=[]
+    eval_dataset=eval_dataset,
+    loss=losses.MultipleNegativesRankingLoss(
+    model=model.module,
+    # similarity_fct=lambda x, y, m: util.energy_distance(x, y, m, metric="L1")
+     scale=20.0,
+    ),
+    callbacks=[],
 )
 
 #torch.autograd.set_detect_anomaly(True)

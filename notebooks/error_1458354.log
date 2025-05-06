@@ -1,0 +1,22 @@
+WARNING:sentence_transformers.SentenceTransformer:No sentence-transformers model found with name /insomnia001/depts/edu/COMSE6998/ck3255/beir/examples/retrieval/training/output/distilbert/distilbert-base-uncased-hotpotqa-lr3e-5-epochs10-temperature20_full_dev. Creating a new one with mean pooling.
+Traceback (most recent call last):
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/energy-distance/notebooks/eval_dataset_subset_length.py", line 29, in <module>
+    model = SentenceTransformer("/insomnia001/depts/edu/COMSE6998/ck3255/beir/examples/retrieval/training/output/distilbert/distilbert-base-uncased-hotpotqa-lr3e-5-epochs10-temperature20_full_dev")
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/sentence-transformers-3.4.1/sentence_transformers/SentenceTransformer.py", line 320, in __init__
+    modules = self._load_auto_model(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/sentence-transformers-3.4.1/sentence_transformers/SentenceTransformer.py", line 1557, in _load_auto_model
+    transformer_model = Transformer(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/sentence-transformers-3.4.1/sentence_transformers/models/Transformer.py", line 81, in __init__
+    self._load_model(model_name_or_path, config, cache_dir, backend, is_peft_model, **model_args)
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/sentence-transformers-3.4.1/sentence_transformers/models/Transformer.py", line 181, in _load_model
+    self.auto_model = AutoModel.from_pretrained(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/anaconda3/envs/myenv39/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 571, in from_pretrained
+    return model_class.from_pretrained(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/anaconda3/envs/myenv39/lib/python3.9/site-packages/transformers/modeling_utils.py", line 279, in _wrapper
+    return func(*args, **kwargs)
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/anaconda3/envs/myenv39/lib/python3.9/site-packages/transformers/modeling_utils.py", line 4260, in from_pretrained
+    checkpoint_files, sharded_metadata = _get_resolved_checkpoint_files(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/anaconda3/envs/myenv39/lib/python3.9/site-packages/transformers/modeling_utils.py", line 952, in _get_resolved_checkpoint_files
+    raise EnvironmentError(
+OSError: Error no file named pytorch_model.bin, model.safetensors, tf_model.h5, model.ckpt.index or flax_model.msgpack found in directory /insomnia001/depts/edu/COMSE6998/ck3255/beir/examples/retrieval/training/output/distilbert/distilbert-base-uncased-hotpotqa-lr3e-5-epochs10-temperature20_full_dev.
+srun: error: ins048: task 0: Exited with exit code 1

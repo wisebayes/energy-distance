@@ -26,7 +26,7 @@ start_time = time.time()  # Record the start time
 
 # Load the model
 #model = SentenceTransformer("/moto/home/ggn2104/beir/examples/retrieval/training/output/distilbert-base-uncased_CosSim-fever-lr2e-05-epochs10-temperature20_full_dev")
-model = SentenceTransformer("/moto/home/ggn2104/beir/examples/retrieval/training/output/distilbert-base-uncased_ED-fever-lr2e-05-epochs10-temperature20_full_dev")
+model = SentenceTransformer("/insomnia001/depts/edu/COMSE6998/ck3255/beir/examples/retrieval/training/output/distilbert/distilbert-base-uncased-hotpotqa-lr3e-5-epochs10-temperature20_full_dev/checkpoint-11950")
 #model = SentenceTransformer("Snowflake/snowflake-arctic-embed-m-v1.5")
 model = model.to(device)  # Ensure the model is loaded to the correct device
 
@@ -46,7 +46,7 @@ print(f"Total number of documents in the full FEVER test set: {total_documents_t
 # Create a subset of queries where the length of each query is at least 20 words
 subset_query_ids = [
     key for key, query in hotpotqa_task.queries["test"].items()
-    if len(query.split()) == 15
+    if len(query.split()) >= 15
 ]
 
 # Print the total number of queries with length 16-17 words
@@ -72,6 +72,12 @@ subset_queries = {
 # Now make sure that corpus still has the "test" key with the subset of corpus data
 hotpotqa_task.queries["test"] = subset_queries
 hotpotqa_task.relevant_docs["test"] = subset_relevant_docs  # Update the relevant_docs for test
+
+# relevant_doc_ids = set(doc_id for docs in subset_relevant_docs.values() for doc_id in docs)
+# hotpotqa_task.corpus["test"] = {
+#     doc_id: hotpotqa_task.corpus["test"][doc_id]
+#     for doc_id in relevant_doc_ids if doc_id in hotpotqa_task.corpus["test"]
+# }
 
 # Create an MTEB evaluation instance with the modified task
 evaluation = MTEB(tasks=[hotpotqa_task])
