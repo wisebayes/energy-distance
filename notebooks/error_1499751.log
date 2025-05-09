@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/energy-distance/notebooks/eval_dataset_subset_length.py", line 33, in <module>
+    assert not np.isnan(model.encode(["test"])).any()
+NameError: name 'np' is not defined
+srun: error: ins035: task 0: Exited with exit code 1

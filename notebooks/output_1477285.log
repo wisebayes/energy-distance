@@ -1,0 +1,252 @@
+Wed May  7 00:25:15 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40                     On  |   00000000:0A:00.0 Off |                    0 |
+| N/A   30C    P8             35W /  300W |       0MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+GPU is available
+Using device: cuda
+Total number of queries in the full FEVER test set: 6666
+Total number of documents in the full FEVER test set: 5416568
+Total number of queries with 15 words: 92
+Total number of relevant documents in the subset: 92
+Evaluation instance created
+─────────────────────────────── Selected tasks  ────────────────────────────────
+Retrieval
+    - FEVER, s2p
+
+
+Length of corpus: 5416568
+Batch size: 128
+Chunk to document: 50000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 100000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 150000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 200000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 250000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 300000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 350000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 400000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 450000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 500000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 550000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 600000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 650000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 700000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 750000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 800000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 850000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 900000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 950000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1000000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1050000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1100000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1150000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1200000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1250000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1300000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1350000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1400000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1450000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1500000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1550000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1600000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1650000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1700000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1750000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1800000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1850000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1900000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 1950000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2000000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2050000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2100000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2150000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2200000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2250000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2300000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2350000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2400000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2450000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2500000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2550000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2600000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2650000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2700000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2750000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2800000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2850000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2900000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 2950000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3000000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3050000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3100000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3150000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3200000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3250000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3300000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3350000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3400000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3450000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3500000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3550000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3600000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3650000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3700000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3750000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3800000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3850000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3900000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 3950000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4000000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4050000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4100000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4150000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4200000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4250000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4300000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4350000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4400000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4450000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4500000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4550000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4600000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4650000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4700000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4750000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4800000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4850000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4900000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 4950000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5000000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5050000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5100000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5150000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5200000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5250000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5300000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5350000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5400000
+Encode corpus kwargs {'convert_to_tensor': True}
+Chunk to document: 5416568
+Encode corpus kwargs {'convert_to_tensor': True}

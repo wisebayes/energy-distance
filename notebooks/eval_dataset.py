@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer
 import torch
 from mteb.tasks.Retrieval import HotpotQA, FEVER
 import random
-
+from sentence_transformers import models
 # Check if GPU is available, otherwise switch to CPU
 if torch.cuda.is_available():
     device = torch.device("cuda")
@@ -20,13 +20,24 @@ print("Using device:", device)
 #model_name = "distilbert-base-uncased_ED-fever-lr2e-05-epochs10-temperature20_full_dev_full_test"
 # model_name = "distilbert-base-uncased_CosSim-fever-lr2e-05-epochs10-temperature20_full_dev_full_test"
 #model_name = "distilbert-base-uncased_CosSim-hotpotqa-lr2e-05-epochs10-temperature200_full_test"
-model_name = "distilbert/distilbert-base-uncased"
+model_name = "/insomnia001/depts/edu/COMSE6998/ck3255/beir/examples/retrieval/training/output/distilbert-base-uncased-hotpotqa-lr3e-5-epochs10_full_dev_norm_1_10_2025-05-08_14-40-44/checkpoint-9290"
 start_time = time.time()  # Record the start time
 
 # Load the model
 # model = SentenceTransformer("/moto/home/ggn2104/beir/examples/retrieval/training/output/distilbert-base-uncased_CosSim-fever-lr2e-05-epochs10-temperature20_full_dev")
-model = SentenceTransformer(model_name)
-model = model.to(device)  # Ensure the model is loaded to the correct device
+word_emb   = models.Transformer(model_name, max_seq_length=512)
+
+# mean-pool + L2-normalise, exactly like the original SBERT papers
+pooling    = models.Pooling(
+                  word_emb.get_word_embedding_dimension(),
+                  pooling_mode_mean_tokens=True,
+                  pooling_mode_cls_token=False,
+                  pooling_mode_max_tokens=False)
+
+normalise  = models.Normalize()                # unit-length embeddings  (important for MNRL)
+
+model = SentenceTransformer(modules=[word_emb, pooling, normalise])
+model.to(device)  # Ensure the model is loaded to the correct device
 
 # Load the HotpotQA task from MTEB
 hotpotqa_task = HotpotQA()
@@ -48,7 +59,7 @@ print(f"Total number of documents in the full HotpotQA test set: {total_document
 evaluation = MTEB(tasks=[hotpotqa_task])
 
 # Run the evaluation
-results = evaluation.run(model, verbosity=2, eval_splits=["test"], output_folder=f"results/{model_name}")
+results = evaluation.run(model, verbosity=3, eval_splits=["test"], output_folder=f"results_hotpotqa/{model_name}")
 
 end_time = time.time()  # Record the end time
 

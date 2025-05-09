@@ -1,0 +1,24 @@
+Map:   0%|          | 0/7937 [00:00<?, ? examples/s]Map:  43%|████▎     | 3441/7937 [00:00<00:00, 34214.58 examples/s]Map: 100%|██████████| 7937/7937 [00:00<00:00, 34144.33 examples/s]Map: 100%|██████████| 7937/7937 [00:00<00:00, 34130.97 examples/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  1.81it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  1.81it/s]
+ERROR:mteb.evaluation.MTEB:Error while evaluating FEVER: CUDA out of memory. Tried to allocate 368.50 GiB. GPU 0 has a total capacty of 44.52 GiB of which 43.53 GiB is free. Including non-PyTorch memory, this process has 1006.00 MiB memory in use. Of the allocated memory 416.42 MiB is allocated by PyTorch, and 87.58 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+Traceback (most recent call last):
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/energy-distance/notebooks/eval_dataset_subset_length.py", line 86, in <module>
+    results = evaluation.run(model, verbosity=3, eval_splits=["test"], output_folder=f"results/{model_name}_2")
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/MTEB.py", line 673, in run
+    raise e
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/MTEB.py", line 626, in run
+    results, tick, tock = self._run_eval(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/MTEB.py", line 308, in _run_eval
+    results = task.evaluate(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/abstasks/AbsTaskRetrieval.py", line 344, in evaluate
+    scores[hf_subset] = self._evaluate_subset(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/abstasks/AbsTaskRetrieval.py", line 353, in _evaluate_subset
+    results = retriever(corpus, queries)
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/evaluators/RetrievalEvaluator.py", line 535, in __call__
+    return self.retriever.search(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/evaluators/RetrievalEvaluator.py", line 213, in search
+    similarity_scores = energy_distance(query_batch, sub_corpus_embeddings, attention_masks[query_batch_index])
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/evaluators/utils.py", line 175, in energy_distance
+    x2 = x_exp.reshape(total, S, E)                      # [Q*D, S, E]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 368.50 GiB. GPU 0 has a total capacty of 44.52 GiB of which 43.53 GiB is free. Including non-PyTorch memory, this process has 1006.00 MiB memory in use. Of the allocated memory 416.42 MiB is allocated by PyTorch, and 87.58 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+srun: error: ins056: task 0: Exited with exit code 1

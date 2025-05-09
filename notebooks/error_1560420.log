@@ -1,0 +1,24 @@
+Map:   0%|          | 0/14810 [00:00<?, ? examples/s]Map:  24%|██▎       | 3485/14810 [00:00<00:00, 34665.23 examples/s]Map:  47%|████▋     | 6977/14810 [00:00<00:00, 34811.62 examples/s]Map:  71%|███████   | 10468/14810 [00:00<00:00, 34849.04 examples/s]Map:  94%|█████████▍| 13974/14810 [00:00<00:00, 34926.94 examples/s]Map: 100%|██████████| 14810/14810 [00:00<00:00, 34867.13 examples/s]
+Batches:   0%|          | 0/58 [00:00<?, ?it/s]Batches:   2%|▏         | 1/58 [00:00<00:31,  1.82it/s]Batches:  12%|█▏        | 7/58 [00:00<00:03, 13.36it/s]Batches:  21%|██        | 12/58 [00:00<00:02, 21.38it/s]Batches:  31%|███       | 18/58 [00:00<00:01, 29.47it/s]Batches:  40%|███▉      | 23/58 [00:00<00:01, 34.47it/s]Batches:  48%|████▊     | 28/58 [00:01<00:00, 38.36it/s]Batches:  57%|█████▋    | 33/58 [00:01<00:00, 40.73it/s]Batches:  67%|██████▋   | 39/58 [00:01<00:00, 45.65it/s]Batches:  78%|███████▊  | 45/58 [00:01<00:00, 48.19it/s]Batches:  88%|████████▊ | 51/58 [00:01<00:00, 48.48it/s]Batches:  98%|█████████▊| 57/58 [00:01<00:00, 48.76it/s]Batches: 100%|██████████| 58/58 [00:01<00:00, 34.70it/s]
+ERROR:mteb.evaluation.MTEB:Error while evaluating HotpotQA: CUDA out of memory. Tried to allocate 173.95 GiB. GPU 0 has a total capacty of 44.52 GiB of which 42.21 GiB is free. Including non-PyTorch memory, this process has 2.30 GiB memory in use. Of the allocated memory 1.43 GiB is allocated by PyTorch, and 396.88 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+Traceback (most recent call last):
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/energy-distance/notebooks/eval_dataset.py", line 62, in <module>
+    results = evaluation.run(model, verbosity=3, eval_splits=["test"], output_folder=f"results_hotpotqa/{model_name}")
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/MTEB.py", line 673, in run
+    raise e
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/MTEB.py", line 626, in run
+    results, tick, tock = self._run_eval(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/MTEB.py", line 308, in _run_eval
+    results = task.evaluate(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/abstasks/AbsTaskRetrieval.py", line 344, in evaluate
+    scores[hf_subset] = self._evaluate_subset(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/abstasks/AbsTaskRetrieval.py", line 353, in _evaluate_subset
+    results = retriever(corpus, queries)
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/evaluators/RetrievalEvaluator.py", line 535, in __call__
+    return self.retriever.search(
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/evaluators/RetrievalEvaluator.py", line 213, in search
+    similarity_scores = energy_distance(query_batch, sub_corpus_embeddings, attention_masks[query_batch_index])
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/mteb-1.34.14/mteb/evaluation/evaluators/utils.py", line 97, in energy_distance
+    xor = xb_bool.unsqueeze(2) ^ yb_bool.unsqueeze(0).unsqueeze(0)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 173.95 GiB. GPU 0 has a total capacty of 44.52 GiB of which 42.21 GiB is free. Including non-PyTorch memory, this process has 2.30 GiB memory in use. Of the allocated memory 1.43 GiB is allocated by PyTorch, and 396.88 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+srun: error: ins061: task 0: Exited with exit code 1

@@ -1,3 +1,6 @@
+# ---------------------------
+# Imports and Setup
+# ---------------------------
 import time
 from mteb import MTEB
 from sentence_transformers import SentenceTransformer
@@ -16,7 +19,8 @@ else:
 
 print("Using device:", device)
 
-# Define the sentence-transformers model name MAKE SURE THE MODEL, DATASET, HYPERPARAMETERS, AND QUERY LENGTHS BEING USED ARE CORRECT
+# Define the sentence-transformers model name
+# MAKE SURE THE MODEL, DATASET, HYPERPARAMETERS, AND QUERY LENGTHS BEING USED ARE CORRECT
 #model_name = "distilbert-base-uncased_ED-hotpotqa-lr1e-05-epochs10-zeropadding_noepsilon_temperature200_full_test_sanitycheck"
 #model_name = "distilbert-base-uncased_ED-hotpotqa-lr2e-05-epochs10-temperature100_full_dev_test_queries_less_than_13"
 #model_name = "distilbert-base-uncased_CosSim-hotpotqa-lr2e-05-epochs10-temperature20_full_dev_test_queries_13_to_17"
@@ -33,6 +37,9 @@ model = model.to(device)  # Ensure the model is loaded to the correct device
 
 assert not np.isnan(model.encode(["test"])).any()
 
+# ---------------------------
+# Dataset Loading and Subsetting
+# ---------------------------
 # Load the task from MTEB
 #hotpotqa_task = HotpotQA()
 hotpotqa_task = FEVER()
@@ -46,13 +53,13 @@ print(f"Total number of queries in the full FEVER test set: {total_queries_test}
 total_documents_test = len(hotpotqa_task.corpus["test"])
 print(f"Total number of documents in the full FEVER test set: {total_documents_test}")
 
-# Create a subset of queries where the length of each query is at least 20 words
+# Create a subset of queries where the length of each query is exactly 15 words
 subset_query_ids = [
     key for key, query in hotpotqa_task.queries["test"].items()
     if len(query.split()) == 15
 ]
 
-# Print the total number of queries with length 16-17 words
+# Print the total number of queries with length 15 words
 print(f"Total number of queries with 15 words: {len(subset_query_ids)}")
 
 # Create a subset of relevant docs based on the selected queries
@@ -61,27 +68,18 @@ subset_relevant_docs = {
     for key in subset_query_ids if key in hotpotqa_task.relevant_docs["test"]
 }
 print(f"Total number of relevant documents in the subset: {len(subset_relevant_docs)}")
-# Subset the queries based on the selected queries with at least 18 words
+# Subset the queries based on the selected queries with exactly 15 words
 subset_queries = {
     key: hotpotqa_task.queries["test"][key] for key in subset_query_ids
 }
 
-
-# You can now use subset_queries and subset_relevant_docs for further processing
-
-# Collect all relevant document IDs
-#relevant_doc_ids = set(doc_id for docs in subset_relevant_docs.values() for doc_id in docs)
-
-# Now make sure that corpus still has the "test" key with the subset of corpus data
+# Update the task's queries and relevant_docs with the subset
 hotpotqa_task.queries["test"] = subset_queries
 hotpotqa_task.relevant_docs["test"] = subset_relevant_docs  # Update the relevant_docs for test
 
-# relevant_doc_ids = set(doc_id for docs in subset_relevant_docs.values() for doc_id in docs)
-# hotpotqa_task.corpus["test"] = {
-#     doc_id: hotpotqa_task.corpus["test"][doc_id]
-#     for doc_id in relevant_doc_ids if doc_id in hotpotqa_task.corpus["test"]
-# }
-
+# ---------------------------
+# Evaluation
+# ---------------------------
 # Create an MTEB evaluation instance with the modified task
 evaluation = MTEB(tasks=[hotpotqa_task])
 print("Evaluation instance created")
@@ -96,8 +94,6 @@ hours = int(duration_seconds // 3600)
 minutes = int((duration_seconds % 3600) // 60)
 seconds = int(duration_seconds % 60)
 
-
 print(f"Model evaluation took: {hours} hours, {minutes} minutes, and {seconds} seconds.")
-#print(f"Total number of queries in the subset: {len(hotpotqa_task.queries["test"])}")
 print(f"Total number of queries in the subset: {len(hotpotqa_task.queries['test'])}")
 print(f"Total number of documents in the subset corpus: {len(hotpotqa_task.corpus['test'])}")

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/energy-distance/notebooks/eval_dataset_subset_length.py", line 30, in <module>
+    model = SentenceTransformer("/insomnia001/depts/edu/COMSE6998/ck3255/beir/examples/retrieval/training/output/distilbert-base-uncased-hotpotqa-lr3e-5-epochs10_full_dev_norm_1_10/checkpoint-23900")
+  File "/insomnia001/depts/edu/COMSE6998/ck3255/sentence-transformers-3.4.1/sentence_transformers/SentenceTransformer.py", line 295, in __init__
+    raise FileNotFoundError(f"Path {model_name_or_path} not found")
+FileNotFoundError: Path /insomnia001/depts/edu/COMSE6998/ck3255/beir/examples/retrieval/training/output/distilbert-base-uncased-hotpotqa-lr3e-5-epochs10_full_dev_norm_1_10/checkpoint-23900 not found
+srun: error: ins036: task 0: Exited with exit code 1
