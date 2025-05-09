@@ -62,3 +62,8 @@ export HF_HOME=/gpfs/u/home/MSSV/MSSVntsn/barn\
 ## IMPORTANT NOTES
 1. All files used for training should be present when you clone the gnatesan/beir repository in beir/examples/retrieval/training folder.
 2. If working on the RPI cluster NPL node make sure that all installations occur in the ~/barn directory due to larger memory storage. 
+
+## RESULTS (ED-L1)
+![Image 1](./wandb_dash.png)
+![Image 2](./wandb_results.png)
+
