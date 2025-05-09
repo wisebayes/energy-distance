@@ -1,4 +1,26 @@
-# Energy Distance Project Training and Inference Instructions
+# HPML Project: Energy Distance Project Training and Inference Instructions
+## Team Information
+- **Team Name**: IBM Project #8
+- **Members**:
+- Chandhru Karthick (ck3255)
+- Chhavi Dixit (cd3496)
+- Elie Gross (eg3346)
+## Problem Statment and Motivation
+Part of long term project to explore better optimal retrieval metrics
+* Traditionally Cosine Similarity used as distance metric for IR tasks
+Potential Issues:
+* Cosine requires a single vector (typically [CLS] to represent a seq) => Loss of information
+Approach:
+* Physics inspired energy-distance as an alternate metric
+* Includes statistics of different token with multiple vectors for each query
+* Treats query as a “cloud” ☁️ and the document as a “point” ⚫️
+Value:
+* Longer queries have more noise and are harder to represent with single embedding [CLS]
+* Ergo: Tends to work better than cosine similarity for longer queries.
+Ongoing experiments explore:
+* Different distance metrics within energy-distance (L1, Hamming_L1…)
+* Comparison with distance metrics like Jenson Shannon-Divergence
+* Impact on IR tasks with different benchmark datasets (CoIR)
 
 ## Setting up Python Environment and Installing Required Libraries
 1. conda create --name myenv39 python=3.9
