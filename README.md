@@ -57,7 +57,7 @@ This architecture is trained using **Multiple Negatives Ranking Loss** scaled by
 | NDCG@1000            | 58.35%       |
 | Inference Latency    | ~12.3 ms     |
 | Training Time/Epoch  | ~820 s       |
-| Device               | 2× NVIDIA L40 (24GB) |
+| Device               | 2× NVIDIA L40 |
 
 
 ---
