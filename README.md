@@ -5,7 +5,8 @@
 - Chandhru Karthick (ck3255)
 - Chhavi Dixit (cd3496)
 - Elie Gross (eg3346)
-## Problem Statment and Motivation
+---
+## Problem Statment
 Part of long term project to explore better optimal retrieval metrics
 * Traditionally Cosine Similarity used as distance metric for IR tasks
 Potential Issues:
@@ -21,8 +22,49 @@ Ongoing experiments explore:
 * Different distance metrics within energy-distance (L1, Hamming_L1…)
 * Comparison with distance metrics like Jenson Shannon-Divergence
 * Impact on IR tasks with different benchmark datasets (CoIR)
+---
+## 2. Model Description
 
-## Setting up Python Environment and Installing Required Libraries
+The model used in this work is based on **DistilBERT**, a lighter and faster variant of BERT, pre-trained on the same corpus with knowledge distillation. The architecture follows the **SentenceTransformer** paradigm, combining a transformer encoder with pooling and normalization layers to generate fixed-size sentence embeddings.
+
+* **Framework**: PyTorch, with [HuggingFace Transformers](https://github.com/huggingface/transformers) and [Sentence-Transformers](https://github.com/UKPLab/sentence-transformers)
+* **Base Architecture**: `distilbert-base-uncased`
+
+  * 6 transformer layers
+  * 12 attention heads
+  * Hidden size: 768
+  * Intermediate (FFN) size: 3072
+  * Activation: GELU
+* **Custom Layers**:
+
+  * **Mean Pooling Layer** over token embeddings (excluding special tokens)
+  * **L2 Normalization Layer** applied to pooled sentence embeddings
+* **Similarity Function**: Unlike standard cosine similarity, a custom **energy distance** metric (`ED-L1`) is used during training and evaluation to better capture intra-query token distributional structure.
+
+This architecture is trained using **Multiple Negatives Ranking Loss** scaled by a fixed factor (20.0) to encourage separation in embedding space, particularly tailored for information retrieval tasks.
+
+---
+## 3. Final Results Summary
+
+| Metric               | Value        |
+|----------------------|--------------|
+| NDCG@1               | 40.22%       |
+| NDCG@3               | 46.40%       |
+| NDCG@5               | 51.09%       |
+| NDCG@10              | 53.62%       |
+| NDCG@20              | 55.58%       |
+| NDCG@100             | 56.93%       |
+| NDCG@1000            | 58.35%       |
+| Inference Latency    | ~12.3 ms     |
+| Training Time/Epoch  | ~820 s       |
+| Device               | 2× NVIDIA L40 (24GB) |
+
+
+---
+
+## 4. Reproducibility Instructions
+
+### Requirements: Setting up Python Environment and Installing Required Libraries
 1. conda create --name myenv39 python=3.9
 2. conda activate myenv39
 3. pip install --upgrade pip --index-url https://pypi.org/simple
@@ -33,7 +75,7 @@ Ongoing experiments explore:
 8. pip install -e /path_to_mteb/mteb-1.34.14
 9. git clone https://github.com/gnatesan/beir.git
 
-## Sanity Check
+### Evaluation/Inference: (Minimum Reproducable)
 1. conda create --name testenv python=3.9
 2. conda activate testenv
 3. pip install --upgrade pip --index-url https://pypi.org/simple
@@ -42,7 +84,7 @@ Ongoing experiments explore:
 6. sbatch inference_CosSim.sh (Make sure the batch script calls eval_dataset.py and a baseline model is being used. *i.e. model = SentenceTransformer("Snowflake/snowflake-arctic-embed-m-v1.5")*)
 7. Cross reference the inference results with what is on the leaderboard. https://huggingface.co/spaces/mteb/leaderboard
 
-## Model Training
+### Model Training
 1. cd /path_to_beir/beir/examples/retrieval/training
 2. Before running training, make sure the model, model_name, and hyperparameters (LR, scale) are correct. 
 nano train_sbert_latest_2.py or nano train_sbert_ddp_2.py to change model, model_name, and LR. 
@@ -50,12 +92,12 @@ nano sentence-transformers-3.4.1/sentence-transformers/losses/MultipleNegativesR
 3. sbatch train.sh OR sbatch train_ddp.sh if using multiple GPUs
 4. Trained model will be saved in /path_to_beir/beir/examples/retrieval/training/output
 
-## Model Evaluation
+### Model Evaluation
 1. sbatch inference_ED.sh if evaluating an ED trained model (myenv39 conda environment must be setup)
 2. sbatch inference_CosSim.sh if evaluating a cosine similarity trained model (testenv conda environment must be setup)
 3. Make sure the proper python script in the batch file is being run (if evaluating entire dataset or subset based on query lengths)
 
-## RPI Cluster Setup
+### RPI Cluster Setup
 1. ssh <username>@blp01.ccni.rpi.edu
 2. ssh nplfen01 (Access NPL front-end node x86)
 3. cd ~/barn
@@ -71,7 +113,7 @@ export HF_HOME=/gpfs/u/home/MSSV/MSSVntsn/barn\
 (Step 7 needs to be done every time you log in to the node, replace MSSVntsn with your username)
 
 
-## IMPORTANT FILES
+### IMPORTANT FILES
 1. train.sh - Batch script to run model training on a single GPU.  
 2. train_ddp.sh - Batch script to run model training on multiple GPUs. Make sure number of GPUs requested are properly set.
 3. inference_ED.sh - Batch script to run inference on an ED trained model. Can run on either entire dataset or subset based on query lengths.
@@ -81,9 +123,13 @@ export HF_HOME=/gpfs/u/home/MSSV/MSSVntsn/barn\
 7. eval_dataset.py - Python script to run inference on entire BEIR dataset.
 8. eval_dataset_subset_length.py - Python script to run inference on subset of BEIR dataset based on query lengths.
 
-## IMPORTANT NOTES
+### IMPORTANT NOTES
 1. All files used for training should be present when you clone the gnatesan/beir repository in beir/examples/retrieval/training folder.
-2. If working on the RPI cluster NPL node make sure that all installations occur in the ~/barn directory due to larger memory storage. 
+2. If working on the RPI cluster NPL node make sure that all installations occur in the ~/barn directory due to larger memory storage.
+
+### B. WANDB Dashboard
+View training and evaluation metrics here: https://wandb.ai/wisebayes-columbia-university/HPML-Energy?nw=nwuserwisebayes
+---
 
 ## RESULTS (ED-L1)
 ![Image 1](./wandb_dash.png)
